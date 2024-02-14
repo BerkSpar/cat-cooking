@@ -16,6 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "Cat Cooking",
             targets: ["AppModule"],
+            teamIdentifier: "R9V648Y475",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .cat),
@@ -25,10 +26,8 @@ let package = Package(
                 .phone
             ],
             supportedInterfaceOrientations: [
-                .portrait,
                 .landscapeRight,
-                .landscapeLeft,
-                .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+                .landscapeLeft
             ]
         )
     ],
@@ -36,6 +35,9 @@ let package = Package(
         .executableTarget(
             name: "AppModule",
             path: ".",
+            resources: [
+                .process("Resources")
+            ], 
             swiftSettings: [
                 .enableUpcomingFeature("BareSlashRegexLiterals")
             ]
