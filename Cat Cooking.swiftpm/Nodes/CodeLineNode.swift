@@ -8,6 +8,12 @@
 import SpriteKit
 
 class CodeLineNode: SKSpriteNode {
+    var line: CodeLine? 
+    
+    init() {
+        super.init(texture: .none, color: .gray, size: CGSize(width: 300, height: 40))
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -15,18 +21,6 @@ class CodeLineNode: SKSpriteNode {
     }
     
     func configurate() {
-        color = .cyan
-        
-        configurePhysics()
-    }
-    
-    func configurePhysics() {
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        physicsBody?.categoryBitMask = PhysicsCategory.codeLine
-        physicsBody?.contactTestBitMask = PhysicsCategory.codeBlock
-        physicsBody?.collisionBitMask = PhysicsCategory.codeBlock
-        physicsBody?.usesPreciseCollisionDetection = false
-        physicsBody?.affectedByGravity = false
-        physicsBody?.allowsRotation = false
+        color = .gray
     }
 }

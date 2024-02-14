@@ -5,11 +5,10 @@
 //  Created by Felipe Passos on 06/02/24.
 //
 
-import Foundation
 import SpriteKit
 
 class GameScene: SKScene {
-    let state = GameState()
+    let state = GameState.instance
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
@@ -18,27 +17,13 @@ class GameScene: SKScene {
                         
         setupButtons()
     }
-
     
     func setupButtons() {
         let startButton = childNode(withName: "StartButton") as! ButtonNode
         startButton.tapClosure = start
         
-        
-
-        
-//        let codeList = childNode(withName: "CodeList")!
-//        
-//        for child in codeList.children {
-//            let button = ButtonNode(imageNamed: "Button", tapClosure: {
-//                print("Button Clicked")
-//            })
-//            button.position = child.position
-//            button.size = (child as! SKSpriteNode).size
-//            
-//            codeList.addChild(button)
-//            child.removeFromParent()
-//        }
+        let pauseButton = childNode(withName: "PauseButton") as! ButtonNode
+        pauseButton.tapClosure = pause
     }
     
     func onStateChange() {
@@ -57,7 +42,7 @@ class GameScene: SKScene {
         }
     }
     
-    func stop() {
+    func pause() {
         state.reset()
     }
 }

@@ -5,12 +5,11 @@
 //  Created by Felipe Passos on 06/02/24.
 //
 
-import Foundation
 import SpriteKit
 
 class CodeBlockNode: SKSpriteNode {
-    var shadow: SKShapeNode?
-    var initialPosition: CGPoint?
+    private var shadow: SKShapeNode?
+    private var initialPosition: CGPoint?
     
     override var isUserInteractionEnabled: Bool {
         set {}
@@ -25,19 +24,9 @@ class CodeBlockNode: SKSpriteNode {
     
     func configurate() {
         configureShadow()
-        configurePhysics()
         
         initialPosition = position
-    }
-    
-    func configurePhysics() {
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        physicsBody?.categoryBitMask = PhysicsCategory.codeBlock
-        physicsBody?.contactTestBitMask = PhysicsCategory.codeLine
-        physicsBody?.collisionBitMask = PhysicsCategory.codeLine
-        physicsBody?.usesPreciseCollisionDetection = false
-        physicsBody?.affectedByGravity = false
-        physicsBody?.allowsRotation = false
+        zPosition = 1
     }
     
     func configureShadow() {
@@ -46,7 +35,7 @@ class CodeBlockNode: SKSpriteNode {
         shadow!.fillColor = .black
         shadow!.position = CGPoint(x: -5, y: -5)
         shadow!.alpha = 0.25
-        // shadow!.zPosition = -1
+        shadow!.zPosition = -1
         
         shadow!.run(.hide())
         
@@ -67,6 +56,26 @@ class CodeBlockNode: SKSpriteNode {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self.parent!)
+            
+            let shape = SKShapeNode(rectOf: CGSize(width: 10, height: 10))
+            shape.fillColor = .blue
+            shape.position = location
+            shape.zPosition = 100
+            parent!.addChild(shape)
+            
+            let touchedNodes = parent!.nodes(at: location)
+            for node in touchedNodes {
+                print(type(of: node))
+                
+                if node.name == "AddNode" {
+                    (node.parent as! ListNode).list.append(AddChocolate())
+                    (node.parent as! ListNode).draw()
+                }
+            }
+        }
+        
         returnToDeck()
     }
     

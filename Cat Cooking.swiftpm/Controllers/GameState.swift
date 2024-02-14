@@ -72,12 +72,9 @@ class Level2: GameLevel {
 }
 
 class GameState: SKNode {
-    var lines: [CodeLine] = [
-        AddChocolate(),
-        CookCookie(),
-        DeliverCookie(),
-        ReturnToStart()
-    ]
+    static var instance = GameState()
+    
+    var lines: [CodeLine] = []
     
     var currentLine: Int = 0
     var cookie: Cookie = Cookie()
