@@ -11,6 +11,10 @@ class CodeBlockNode: SKSpriteNode {
     private var shadow: SKShapeNode?
     private var initialPosition: CGPoint?
     
+    var line: CodeLine?
+    
+    private var state = GameState.instance
+    
     override var isUserInteractionEnabled: Bool {
         set {}
         get { return true }
@@ -59,19 +63,10 @@ class CodeBlockNode: SKSpriteNode {
         if let touch = touches.first {
             let location = touch.location(in: self.parent!)
             
-            let shape = SKShapeNode(rectOf: CGSize(width: 10, height: 10))
-            shape.fillColor = .blue
-            shape.position = location
-            shape.zPosition = 100
-            parent!.addChild(shape)
-            
             let touchedNodes = parent!.nodes(at: location)
             for node in touchedNodes {
-                print(type(of: node))
-                
-                if node.name == "AddNode" {
-                    (node.parent as! ListNode).list.append(AddChocolate())
-                    (node.parent as! ListNode).draw()
+                if node.name == "AddNode" && line != nil {
+                    state.addLine(line!)
                 }
             }
         }

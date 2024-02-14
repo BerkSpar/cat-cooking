@@ -12,10 +12,27 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
-        
-        state.onStateChange = onStateChange
-                        
+                                
         setupButtons()
+        setupBlocks()
+        setupCats()
+    }
+    
+    func setupBlocks() {
+        let cookieCookie = childNode(withName: "CookCookieBlock") as! CodeBlockNode
+        cookieCookie.line = CookCookie()
+        
+        let deliverCookie = childNode(withName: "DeliverCookieBlock") as! CodeBlockNode
+        deliverCookie.line = DeliverCookie()
+        
+        let returnToStart = childNode(withName: "ReturnToStartBlock") as! CodeBlockNode
+        returnToStart.line = ReturnToStart()
+        
+        let addChocolate = childNode(withName: "AddChocolateBlock") as! CodeBlockNode
+        addChocolate.line = AddChocolate()
+        
+        let ifCondition = childNode(withName: "IfConditionBlock") as! CodeBlockNode
+        ifCondition.line = IfCondition()
     }
     
     func setupButtons() {
@@ -23,17 +40,18 @@ class GameScene: SKScene {
         startButton.tapClosure = start
         
         let pauseButton = childNode(withName: "PauseButton") as! ButtonNode
-        pauseButton.tapClosure = pause
+        pauseButton.tapClosure = stop
     }
     
-    func onStateChange() {
-        let codeList = childNode(withName: "CodeList")!
-        
-        for child in codeList.children {
-            (child as! SKSpriteNode).color = .red
+    func setupCats() {
+        for cat in state.level.cats {
+            let cat = CatNode(cat: Cat(cookie: Cookie(state: .baked, hasChocolate: true), image: "Cat"))
+            cat.size = CGSize(width: 100, height: 100)
+            cat.position = CGPoint(x: -size.width/2 - cat.size.width/2, y: 0)
+            addChild(cat)
+            
+            cat.walkTo(position:  CGPoint(x: 0, y: 0))
         }
-        
-        (codeList.children[state.currentLine] as! SKSpriteNode).color = .black
     }
     
     func start() {
@@ -42,7 +60,7 @@ class GameScene: SKScene {
         }
     }
     
-    func pause() {
-        state.reset()
+    func stop() {
+        state.stop()
     }
 }

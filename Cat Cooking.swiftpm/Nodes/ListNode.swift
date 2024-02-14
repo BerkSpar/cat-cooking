@@ -7,9 +7,9 @@
 
 import SpriteKit
 
-class ListNode: SKSpriteNode {
-    var list: [CodeLine] = []
-    
+class ListNode: SKSpriteNode, GameStateListener {
+    var state = GameState.instance
+        
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -18,6 +18,12 @@ class ListNode: SKSpriteNode {
     
     func configurate() {
         draw()
+        
+        state.addListener(self)
+    }
+    
+    func onStateChange(state: GameState) {
+        draw()
     }
     
     func draw() {
@@ -25,29 +31,44 @@ class ListNode: SKSpriteNode {
             child.removeFromParent()
         }
         
-        var lastPosition = position
+        var lastPosition = CGPoint(x: 0, y: 0)
         
-        for line in list {
+        for (index, line) in state.lines.enumerated() {
             let shape = CodeLineNode()
             shape.size = CGSize(width: 300, height: 60)
             shape.color = .green
             shape.position = lastPosition
+            
+            if !state.isRunning {
+                let removeButton = ButtonNode(imageNamed: "Button") {
+                    self.state.removeLine(at: index)
+                }
+                removeButton.size = CGSize(width: 60, height: 60)
+                removeButton.position = CGPoint(x: shape.size.width / 2 + 20, y: 0)
+                shape.addChild(removeButton)
+            }
+            
+            let text = SKLabelNode(text: line.name)
+            text.fontColor = .black
+            shape.addChild(text)
+            
+            if index == state.currentLine && state.isRunning {
+                shape.color = .magenta
+            }
             
             addChild(shape)
             
             lastPosition.y += -shape.size.height - 10
         }
         
-        let shape = SKSpriteNode()
-        shape.size = CGSize(width: 300, height: 60)
-        shape.color = .gray
-        shape.position = lastPosition
-        shape.name = "AddNode"
-        
-        addChild(shape)
-        
-        GameState.instance.lines = list
+        if !state.isRunning && state.lines.count < 12 {
+            let shape = SKSpriteNode()
+            shape.size = CGSize(width: 300, height: 60)
+            shape.color = .gray
+            shape.position = lastPosition
+            shape.name = "AddNode"
+            
+            addChild(shape)
+        }
     }
-    
-    
 }

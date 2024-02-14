@@ -7,88 +7,41 @@
 
 import SpriteKit
 
-enum CookieState {
-    case cru
-    case assado
-    case queimado
-}
-
-struct Cookie {
-    var state: CookieState = .cru
-    var hasChocolate: Bool = false
-}
-
-struct Cat {
-    var cookie: Cookie?
-}
-
-protocol CodeLine {
-    func run(_ state: GameState)
-}
-
-class AddChocolate: CodeLine {
-    func run(_ state: GameState) {
-        state.cookie.hasChocolate = true
-        print("Adiciona chocolate")
-    }
-}
-
-class DeliverCookie: CodeLine {
-    func run(_ state: GameState) {
-        print("Entrega")
-    }
-}
-
-class CookCookie: CodeLine {
-    func run(_ state: GameState) {
-        state.cookie.state = .assado
-        print("Assa Cookie")
-    }
-}
-
-class ReturnToStart: CodeLine {
-    func run(_ state: GameState) {
-        state.currentLine = -1
-        print("Retorna ao começo")
-    }
-}
-
-protocol GameLevel {
-    var cats: [Cat] { get }
-}
-
-class Level1: GameLevel {
-    let cats: [Cat] = [
-        Cat(cookie: Cookie(state: .assado)),
-        Cat(cookie: Cookie(state: .assado)),
-        Cat(cookie: Cookie(state: .assado)),
-    ]
-}
-
-class Level2: GameLevel {
-    let cats: [Cat] = [
-        Cat(cookie: Cookie(state: .assado, hasChocolate: true)),
-    ]
+protocol GameStateListener {
+  func onStateChange(state: GameState)
 }
 
 class GameState: SKNode {
+    var listeners: [GameStateListener] = []
+    
     static var instance = GameState()
     
     var lines: [CodeLine] = []
-    
     var currentLine: Int = 0
     var cookie: Cookie = Cookie()
     var iterationCount = 0
-    
     var level: GameLevel = Level1()
     
-    var onStateChange: (() -> Void)?
-        
+    var isRunning: Bool = false
+    
+    func addLine(_ line: CodeLine) {
+        lines.append(line)
+        notifyListeners()
+    }
+    
+    func removeLine(at position: Int) {
+        lines.remove(at: position)
+        notifyListeners()
+    }
+
     func runCode() async {
+        if isRunning { return }
+        
         reset()
         
-        while(currentLine < lines.count) {
-            onStateChange?()
+        isRunning = true
+        while(currentLine < lines.count && isRunning) {
+            notifyListeners()
             
             iterationCount += 1
             
@@ -104,5 +57,21 @@ class GameState: SKNode {
     func reset() {
         currentLine = 0
         cookie = Cookie()
+        notifyListeners()
+    }
+    
+    func stop() {
+        isRunning = false
+        notifyListeners()
+    }
+    
+    func addListener(_ listener: GameStateListener) {
+        listeners.append(listener)
+    }
+    
+    func notifyListeners() {
+        for listener in listeners {
+            listener.onStateChange(state: self)
+        }
     }
 }
