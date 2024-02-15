@@ -18,9 +18,10 @@ class GameState: SKNode {
     
     var lines: [CodeLine] = []
     var currentLine: Int = 0
+    var currentCat: Int = 0
     var cookie: Cookie = Cookie()
     var iterationCount = 0
-    var level: GameLevel = Level1()
+    var level: GameLevel = Level3()
     
     var isRunning: Bool = false
     
@@ -40,7 +41,7 @@ class GameState: SKNode {
         reset()
         
         isRunning = true
-        while(currentLine < lines.count && isRunning) {
+        while(currentLine < lines.count && isRunning && currentCat < level.cats.count) {
             notifyListeners()
             
             iterationCount += 1
@@ -56,13 +57,14 @@ class GameState: SKNode {
     
     func reset() {
         currentLine = 0
+        currentCat = 0
         cookie = Cookie()
         notifyListeners()
     }
     
     func stop() {
         isRunning = false
-        notifyListeners()
+        reset()
     }
     
     func addListener(_ listener: GameStateListener) {

@@ -7,11 +7,14 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, GameStateListener {
     let state = GameState.instance
+    var currentCookie: CookieNode?
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        
+        state.addListener(self)
                                 
         setupButtons()
         setupBlocks()
@@ -44,13 +47,52 @@ class GameScene: SKScene {
     }
     
     func setupCats() {
-        for cat in state.level.cats {
-            let cat = CatNode(cat: Cat(cookie: Cookie(state: .baked, hasChocolate: true), image: "Cat"))
-            cat.size = CGSize(width: 100, height: 100)
-            cat.position = CGPoint(x: -size.width/2 - cat.size.width/2, y: 0)
-            addChild(cat)
-            
-            cat.walkTo(position:  CGPoint(x: 0, y: 0))
+        let catPositions = childNode(withName: "CatPositions")!
+        
+        Task {
+            for (i, current) in state.level.cats.enumerated() {
+                let cat = CatNode(cat: current)
+                cat.size = CGSize(width: 100, height: 100)
+                cat.position = CGPoint(x: -size.width/2 - cat.size.width/2, y: 0)
+                addChild(cat)
+                
+                cat.walkTo(position:  catPositions.children[i].position)
+                
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+            }
+        }
+    }
+    
+    func addCookie() {
+        let cookiePreview = childNode(withName: "CookiePreview")!
+        
+        let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false, image: "Cookie"))
+        cookie.position = cookiePreview.position
+        cookie.size = CGSize(width: 100, height: 100)
+        addChild(cookie)
+        
+        currentCookie = cookie
+    }
+    
+    func onStateChange(state: GameState) {
+        if !state.isRunning { return }
+        
+        let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat]
+        let currentLine = state.lines[state.currentLine]
+        
+        if currentLine is DeliverCookie {
+            var catPosition = currentCat.position
+            catPosition.y -= 50
+            currentCookie?.run(.sequence([
+                .move(to: catPosition, duration: 2),
+                .run {
+                    self.currentCookie?.eat()
+                }
+            ]))
+        }
+        
+        if currentLine is CookCookie {
+            addCookie()
         }
     }
     
@@ -62,5 +104,13 @@ class GameScene: SKScene {
     
     func stop() {
         state.stop()
+        
+        clearCookies()
+    }
+    
+    func clearCookies() {
+        for child in children {
+            if child is CookieNode { child.removeFromParent() }
+        }
     }
 }

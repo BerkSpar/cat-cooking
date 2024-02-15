@@ -16,4 +16,5 @@ enum CookieState {
 struct Cookie {
     var state: CookieState = .raw
     var hasChocolate: Bool = false
+    var image: String = ""
 }

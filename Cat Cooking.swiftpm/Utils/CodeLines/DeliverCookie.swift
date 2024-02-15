@@ -11,6 +11,7 @@ class DeliverCookie: CodeLine {
     let name = "Deliver Cookie"
     
     func run(_ state: GameState) {
+        state.currentCat += 1
         print("Entrega")
     }
 }

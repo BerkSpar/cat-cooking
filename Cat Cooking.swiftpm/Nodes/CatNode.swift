@@ -15,10 +15,35 @@ class CatNode: SKSpriteNode {
         
         let texture = SKTexture(imageNamed: cat.image)
         super.init(texture: texture, color: .gray, size: texture.size())
+        
+        isUserInteractionEnabled = true
+        
+        configurate()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configurate() {
+        if cat.cookie?.hasChocolate ?? false {
+            let chocolate = SKSpriteNode(imageNamed: "Cookie")
+            chocolate.size = CGSize(width: 50, height: 50)
+            chocolate.position.y += 100
+            chocolate.run(.repeatForever(.sequence([
+                .moveTo(y: chocolate.position.y - 10, duration: 1),
+                .moveTo(y: chocolate.position.y + 10, duration: 1),
+            ])))
+            addChild(chocolate)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        run(.sequence([
+            .scaleX(to: 0.9, duration: 0.1),
+            .scaleX(to: 1.1, duration: 0.1),
+            .scaleX(to: 1.0, duration: 0.1)
+        ]))
     }
     
     func walkTo(position: CGPoint) {

@@ -7,8 +7,14 @@
 
 import Foundation
 
+enum CatType {
+    case type1
+    case type2
+    case type3
+}
+
 struct Cat {
     var cookie: Cookie?
-    
-    var image: String = ""
+    var type: CatType = .type1
+    var image: String = "Cat"
 }
