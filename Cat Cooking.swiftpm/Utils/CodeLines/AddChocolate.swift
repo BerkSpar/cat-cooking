@@ -11,7 +11,12 @@ class AddChocolate: CodeLine {
     let name = "Add Chocolate"
     
     func run(_ state: GameState) {
-        state.cookie.hasChocolate = true
+        if state.cookie == nil {
+            state.wrongCookieMessage = "There is no cookie to add chocolate"
+            return
+        }
+        
+        state.cookie?.hasChocolate = true
         print("Adiciona chocolate")
     }
 }

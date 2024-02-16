@@ -13,7 +13,7 @@ class CookieNode: SKSpriteNode {
     init(cookie: Cookie) {
         self.cookie = cookie
         
-        let texture = SKTexture(imageNamed: cookie.image)
+        let texture = SKTexture(imageNamed: cookie.getImage())
         super.init(texture: texture, color: .gray, size: texture.size())
         
         isUserInteractionEnabled = true
@@ -29,5 +29,11 @@ class CookieNode: SKSpriteNode {
             .scaleY(to: 1.1, duration: 0.2),
             .scaleY(to: 1.0, duration: 0.2)
         ]), count: 3))
+    }
+    
+    func setCookie(_ cookie: Cookie) {
+        self.cookie = cookie
+
+        texture = SKTexture(imageNamed: cookie.getImage())
     }
 }

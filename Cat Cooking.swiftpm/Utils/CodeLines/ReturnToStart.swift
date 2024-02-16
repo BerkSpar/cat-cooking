@@ -11,7 +11,7 @@ class ReturnToStart: CodeLine {
     let name = "Return To Start"
     
     func run(_ state: GameState) {
-        state.currentLine = -1
+        state.returnToStart = true
         print("Retorna ao começo")
     }
 }

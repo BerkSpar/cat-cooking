@@ -19,9 +19,15 @@ class GameState: SKNode {
     var lines: [CodeLine] = []
     var currentLine: Int = 0
     var currentCat: Int = 0
-    var cookie: Cookie = Cookie()
+    var cookie: Cookie?
     var iterationCount = 0
     var level: GameLevel = Level3()
+    var returnToStart: Bool = false
+    var wrongCookieMessage: String? {
+        didSet {
+            print(wrongCookieMessage)
+        }
+    }
     
     var isRunning: Bool = false
     
@@ -41,13 +47,22 @@ class GameState: SKNode {
         reset()
         
         isRunning = true
-        while(currentLine < lines.count && isRunning && currentCat < level.cats.count) {
-            notifyListeners()
-            
+        
+        while(currentLine < lines.count &&
+              isRunning &&
+              currentCat < level.cats.count &&
+              wrongCookieMessage == nil) {
             iterationCount += 1
             
             let line = lines[currentLine]
             line.run(self)
+
+            notifyListeners()
+            
+            if returnToStart {
+                returnToStart = false
+                currentLine = -1
+            }
             
             try? await Task.sleep(nanoseconds: 1_000_000_000)
             
@@ -58,7 +73,9 @@ class GameState: SKNode {
     func reset() {
         currentLine = 0
         currentCat = 0
-        cookie = Cookie()
+        cookie = nil
+        wrongCookieMessage = nil
+        
         notifyListeners()
     }
     

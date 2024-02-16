@@ -11,7 +11,19 @@ class DeliverCookie: CodeLine {
     let name = "Deliver Cookie"
     
     func run(_ state: GameState) {
+        if state.cookie == nil {
+            state.wrongCookieMessage = "There is no cookie to deliver"
+            return
+        }
+        
+        let catCookie = state.level.cats[state.currentCat].cookie
+        
+        if catCookie != state.cookie {
+            state.wrongCookieMessage = "The cat don't want this cookie"
+        }
+        
         state.currentCat += 1
+        state.cookie = nil
         print("Entrega")
     }
 }

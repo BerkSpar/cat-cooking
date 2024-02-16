@@ -26,8 +26,8 @@ class CatNode: SKSpriteNode {
     }
     
     func configurate() {
-        if cat.cookie?.hasChocolate ?? false {
-            let chocolate = SKSpriteNode(imageNamed: "Cookie")
+        if cat.cookie.hasChocolate {
+            let chocolate = SKSpriteNode(imageNamed: "ChocolateCookie")
             chocolate.size = CGSize(width: 50, height: 50)
             chocolate.position.y += 100
             chocolate.run(.repeatForever(.sequence([

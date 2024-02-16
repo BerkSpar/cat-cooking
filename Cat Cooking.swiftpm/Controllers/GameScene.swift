@@ -66,7 +66,7 @@ class GameScene: SKScene, GameStateListener {
     func addCookie() {
         let cookiePreview = childNode(withName: "CookiePreview")!
         
-        let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false, image: "Cookie"))
+        let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false))
         cookie.position = cookiePreview.position
         cookie.size = CGSize(width: 100, height: 100)
         addChild(cookie)
@@ -75,18 +75,21 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func onStateChange(state: GameState) {
-        if !state.isRunning { return }
+        showText(state.wrongCookieMessage)
         
-        let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat]
+        if !state.isRunning || state.currentLine < 0 { return }
+        
         let currentLine = state.lines[state.currentLine]
         
-        if currentLine is DeliverCookie {
+        if currentLine is DeliverCookie && currentCookie != nil {
+            let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat - 1]
+            
             var catPosition = currentCat.position
             catPosition.y -= 50
             currentCookie?.run(.sequence([
                 .move(to: catPosition, duration: 2),
                 .run {
-                    self.currentCookie?.eat()
+                    self.currentCookie!.eat()
                 }
             ]))
         }
@@ -94,6 +97,38 @@ class GameScene: SKScene, GameStateListener {
         if currentLine is CookCookie {
             addCookie()
         }
+        
+        if currentLine is AddChocolate || currentLine is CookCookie {
+            if state.cookie != nil {
+                currentCookie?.setCookie(state.cookie!)
+            }
+        }
+    }
+    
+    func showText(_ text: String?) {
+        for child in children {
+            if child.name == "UIText" { child.removeFromParent() }
+        }
+        
+        if text == nil { return }
+        
+        let text = SKLabelNode(text: text)
+        text.name = "UIText"
+        text.zPosition = 100
+        
+        var rect = CGRect(
+            x: -(text.frame.width + 40) / 2 ,
+            y: -(text.frame.height + 20) / 2,
+            width: text.frame.width + 40,
+            height: text.frame.height + 40
+        )
+        
+        let shape = SKShapeNode(rect: rect)
+        shape.fillColor = .black
+        shape.zPosition -= 1
+        text.addChild(shape)
+        
+        addChild(text)
     }
     
     func start() {

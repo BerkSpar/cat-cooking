@@ -13,8 +13,21 @@ enum CookieState {
     case burnt
 }
 
-struct Cookie {
+struct Cookie: Equatable {
     var state: CookieState = .raw
     var hasChocolate: Bool = false
-    var image: String = ""
+    
+    func getImage() -> String {
+        if state == .burnt {
+            return "BurntCookie"
+        }
+        
+        return hasChocolate ? "ChocolateCookie" : "RawCookie"
+    }
+    
+    public static func ==(lhs: Cookie, rhs: Cookie) -> Bool {
+        return
+            lhs.state == rhs.state &&
+            lhs.hasChocolate == rhs.hasChocolate
+    }
 }

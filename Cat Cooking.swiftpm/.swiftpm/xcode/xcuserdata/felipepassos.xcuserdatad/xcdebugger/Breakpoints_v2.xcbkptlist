@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "9F5CFFCD-C95A-4072-B780-FB5DF80A01F3"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/GameState.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "runCode()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - aaed4084b6eb1895"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
+                  moduleName = "Cat Cooking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1240">
+               </Location>
+               <Location
+                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - d5c23b2cf8cf697"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
+                  moduleName = "Cat Cooking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+               <Location
+                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - b0937d3b2cdc0598"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
+                  moduleName = "Cat Cooking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1052">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
