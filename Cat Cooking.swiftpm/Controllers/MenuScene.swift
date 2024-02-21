@@ -32,7 +32,7 @@ class MenuScene: SKScene {
         let currentStartPosition = isRightToLeft ? rightPosition : leftPosition
         let currentEndPosition = isRightToLeft ? leftPosition : rightPosition
         let currentYPosition = Double.random(in: yPositionMax...yPositionMin)
-        let currentCatName = isRightToLeft ? "Cat2Full" : "CatFull"
+        let currentCatName = Bool.random() ? "Cat2Full" : "CatFull"
         
         let cat = SKSpriteNode(imageNamed: currentCatName)
         cat.size = CGSize(width: 100, height: 125)
@@ -41,9 +41,9 @@ class MenuScene: SKScene {
         cat.position.x = currentStartPosition
         
         cat.run(.repeatForever(.sequence([
-            .scaleX(to: 0.9, duration: 0.1),
-            .scaleX(to: 1.1, duration: 0.1),
-            .scaleX(to: 1.0, duration: 0.1),
+            .scaleX(to: 0.9 * (isRightToLeft ? -1 : 1), duration: 0.1),
+            .scaleX(to: 1.1 * (isRightToLeft ? -1 : 1), duration: 0.1),
+            .scaleX(to: 1.0 * (isRightToLeft ? -1 : 1), duration: 0.1),
         ])))
         cat.run(.sequence([
             .move(to: CGPoint(x: currentEndPosition, y: -250), duration: 10),

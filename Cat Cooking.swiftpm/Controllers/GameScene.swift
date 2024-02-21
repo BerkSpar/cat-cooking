@@ -20,6 +20,15 @@ class GameScene: SKScene, GameStateListener {
         setupBlocks()
         setupCats()
         setupMusic()
+        setupTommas()
+    }
+    
+    func setupTommas() {
+        let tommas = childNode(withName: "Tommas")!
+        tommas.run(.repeatForever(.sequence([
+            .rotate(toAngle: 0.1, duration: 1),
+            .rotate(toAngle: -0.1, duration: 1)
+        ])))
     }
     
     func setupMusic() {
@@ -89,18 +98,21 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func onStateChange(state: GameState) {
+        let tommas = childNode(withName: "Tommas")!
+        tommas.isHidden = state.wrongCookieMessage != nil
+        
         showText(state.wrongCookieMessage)
         
         if !state.isRunning || state.currentLine < 0 { return }
         
         let currentLine = state.lines[state.currentLine]
         
-        if currentLine is DeliverCookie && currentCookie != nil {
+        if currentLine is DeliverCookie && currentCookie != nil && state.currentCat > 0 {
             let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat - 1]
             
             var catPosition = currentCat.position
-            catPosition.y -= 20
-            catPosition.x += 10
+            catPosition.y -= 25
+            catPosition.x += 20
             currentCookie?.run(.sequence([
                 .group([
                     .move(to: catPosition, duration: 2),
@@ -146,7 +158,7 @@ class GameScene: SKScene, GameStateListener {
         shape.zPosition -= 1
         text.addChild(shape)
         
-        let cat = SKSpriteNode(imageNamed: "Tommas")
+        let cat = SKSpriteNode(imageNamed: "BadTommas")
         cat.size = CGSize(width: 150, height: 150)
         cat.position = shape.position
         cat.position.x = shape.frame.width - 75
@@ -163,7 +175,7 @@ class GameScene: SKScene, GameStateListener {
         background.alpha = 0.4
         background.zPosition -= 1
         
-        shape.addChild(background)
+//        shape.addChild(background)
         
         
         text.addChild(cat)
