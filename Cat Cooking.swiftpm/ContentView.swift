@@ -2,8 +2,8 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
-    var scene: GameScene {
-        let scene = GameScene(fileNamed: "GameScene")!
+    var scene: SKScene {
+        let scene = MenuScene(fileNamed: "MenuScene")!
                 
         scene.size = CGSize(
             width: 1366,

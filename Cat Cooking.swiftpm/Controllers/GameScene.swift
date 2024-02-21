@@ -68,7 +68,7 @@ class GameScene: SKScene, GameStateListener {
         
         let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false))
         cookie.position = cookiePreview.position
-        cookie.size = CGSize(width: 100, height: 100)
+        cookie.size = CGSize(width: 50, height: 50)
         addChild(cookie)
         
         currentCookie = cookie
@@ -127,6 +127,28 @@ class GameScene: SKScene, GameStateListener {
         shape.fillColor = .black
         shape.zPosition -= 1
         text.addChild(shape)
+        
+        let cat = SKSpriteNode(imageNamed: "Tommas")
+        cat.size = CGSize(width: 150, height: 150)
+        cat.position = shape.position
+        cat.position.x = shape.frame.width - 75
+        cat.position.y += 35
+        
+        cat.run(.repeatForever(.sequence([
+            .rotate(toAngle: 0.1, duration: 0.5),
+            .rotate(toAngle: -0.1, duration: 0.5)
+        ])))
+        
+        let background = SKSpriteNode()
+        background.size = scene!.size
+        background.color = .black
+        background.alpha = 0.4
+        background.zPosition -= 1
+        
+        shape.addChild(background)
+        
+        
+        text.addChild(cat)
         
         addChild(text)
     }
