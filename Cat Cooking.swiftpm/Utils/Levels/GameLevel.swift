@@ -9,4 +9,8 @@ import Foundation
 
 protocol GameLevel {
     var cats: [Cat] { get }
+    
+    var enableChocolate: Bool { get }
+    var enableReturnToStart: Bool { get }
+    var enableIfCondition: Bool { get }
 }

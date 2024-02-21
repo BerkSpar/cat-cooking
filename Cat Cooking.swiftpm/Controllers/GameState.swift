@@ -21,7 +21,7 @@ class GameState: SKNode {
     var currentCat: Int = 0
     var cookie: Cookie?
     var iterationCount = 0
-    var level: GameLevel = Level3()
+    var level: GameLevel = Level1()
     var returnToStart: Bool = false
     var wrongCookieMessage: String? {
         didSet {

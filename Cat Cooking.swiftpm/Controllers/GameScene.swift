@@ -19,6 +19,11 @@ class GameScene: SKScene, GameStateListener {
         setupButtons()
         setupBlocks()
         setupCats()
+        setupMusic()
+    }
+    
+    func setupMusic() {
+        SoundManager.instance.play("Jazzberry Jam")
     }
     
     func setupBlocks() {
@@ -30,12 +35,15 @@ class GameScene: SKScene, GameStateListener {
         
         let returnToStart = childNode(withName: "ReturnToStartBlock") as! CodeBlockNode
         returnToStart.line = ReturnToStart()
+        returnToStart.isHidden = !state.level.enableReturnToStart
         
         let addChocolate = childNode(withName: "AddChocolateBlock") as! CodeBlockNode
         addChocolate.line = AddChocolate()
+        addChocolate.isHidden = !state.level.enableChocolate
         
         let ifCondition = childNode(withName: "IfConditionBlock") as! CodeBlockNode
         ifCondition.line = IfCondition()
+        ifCondition.isHidden = !state.level.enableIfCondition
     }
     
     func setupButtons() {
@@ -47,13 +55,19 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func setupCats() {
+        let yPositionMin = -300.0
+        let yPositionMax = -450.0
+        
         let catPositions = childNode(withName: "CatPositions")!
         
         Task {
             for (i, current) in state.level.cats.enumerated() {
                 let cat = CatNode(cat: current)
-                cat.size = CGSize(width: 100, height: 100)
-                cat.position = CGPoint(x: -size.width/2 - cat.size.width/2, y: 0)
+                cat.size = CGSize(width: 100, height: 125)
+                cat.position = CGPoint(
+                    x: -size.width/2 - cat.size.width/2,
+                    y: Double.random(in: yPositionMax...yPositionMin)
+                )
                 addChild(cat)
                 
                 cat.walkTo(position:  catPositions.children[i].position)
@@ -68,7 +82,7 @@ class GameScene: SKScene, GameStateListener {
         
         let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false))
         cookie.position = cookiePreview.position
-        cookie.size = CGSize(width: 50, height: 50)
+        cookie.size = CGSize(width: 100, height: 100)
         addChild(cookie)
         
         currentCookie = cookie
@@ -85,9 +99,13 @@ class GameScene: SKScene, GameStateListener {
             let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat - 1]
             
             var catPosition = currentCat.position
-            catPosition.y -= 50
+            catPosition.y -= 20
+            catPosition.x += 10
             currentCookie?.run(.sequence([
-                .move(to: catPosition, duration: 2),
+                .group([
+                    .move(to: catPosition, duration: 2),
+                    .resize(toWidth: 30, height: 30, duration: 2)
+                ]),
                 .run {
                     self.currentCookie!.eat()
                 }

@@ -16,5 +16,5 @@ enum CatType {
 struct Cat {
     var cookie: Cookie
     var type: CatType = .type1
-    var image: String = "Cat"
+    var image: String = "CatFull"
 }
