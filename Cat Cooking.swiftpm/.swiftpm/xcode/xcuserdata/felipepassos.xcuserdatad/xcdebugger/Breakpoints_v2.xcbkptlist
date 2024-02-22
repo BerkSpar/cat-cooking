@@ -14,8 +14,8 @@
             filePath = "Controllers/GameState.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "runCode()"
             landmarkType = "7">
             <Locations>

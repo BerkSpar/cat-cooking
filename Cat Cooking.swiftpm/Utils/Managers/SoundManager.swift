@@ -28,6 +28,7 @@ class SoundManager {
 
         try! audioPlayer = AVAudioPlayer(contentsOf: sound)
         audioPlayer?.prepareToPlay()
+        audioPlayer?.volume = 0
         audioPlayer?.numberOfLoops = -1
                 
         audioPlayer?.play()

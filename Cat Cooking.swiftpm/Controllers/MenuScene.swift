@@ -65,9 +65,19 @@ class MenuScene: SKScene {
         }
     }
     
+    func setupButton(_ nodeName: String, tapClosure: @escaping () -> Void) {
+        let node = childNode(withName: nodeName) as! SKSpriteNode
+        
+        let button = ButtonNode(imageNamed: "Button", tapClosure: tapClosure)
+        button.position = node.position
+        button.size = node.size
+        
+        addChild(button)
+        node.removeFromParent()
+    }
+    
     func setupButtons() {
-        let startButton = childNode(withName: "StartButton") as! ButtonNode
-        startButton.tapClosure = start
+        setupButton("StartButton", tapClosure: start)
     }
     
     func start() {

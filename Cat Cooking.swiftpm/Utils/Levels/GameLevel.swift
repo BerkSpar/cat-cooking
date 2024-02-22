@@ -13,4 +13,7 @@ protocol GameLevel {
     var enableChocolate: Bool { get }
     var enableReturnToStart: Bool { get }
     var enableIfCondition: Bool { get }
+    
+    var phrasesPre: [String] { get }
+    var phrasesPos: [String] { get }
 }

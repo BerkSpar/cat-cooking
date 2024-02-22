@@ -33,6 +33,7 @@ class ButtonNode: SKSpriteNode {
             .scaleX(to: 1.1, duration: 0.1),
             .scaleX(to: 1.0, duration: 0.1),
             .run {
+                print("Button Tapped")
                 self.tapClosure?()
             }
         ]))

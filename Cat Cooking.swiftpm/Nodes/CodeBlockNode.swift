@@ -20,10 +20,15 @@ class CodeBlockNode: SKSpriteNode {
         get { return true }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    init(imageNamed: String, line: CodeLine) {
+        self.line = line
         
-        configurate()
+        let texture = SKTexture(imageNamed: imageNamed)
+        super.init(texture: texture, color: .clear, size: texture.size())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func configurate() {
@@ -65,6 +70,8 @@ class CodeBlockNode: SKSpriteNode {
             
             let touchedNodes = parent!.nodes(at: location)
             for node in touchedNodes {
+                print(node.name)
+                print(line)
                 if node.name == "AddNode" && line != nil {
                     state.addLine(line!)
                 }

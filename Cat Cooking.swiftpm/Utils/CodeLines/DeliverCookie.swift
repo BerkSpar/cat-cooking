@@ -23,6 +23,7 @@ class DeliverCookie: CodeLine {
         }
         
         state.currentCat += 1
+        state.cookies.append(state.cookie!)
         state.cookie = nil
         print("Entrega")
     }

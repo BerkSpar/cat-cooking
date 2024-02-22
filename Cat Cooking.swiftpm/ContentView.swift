@@ -2,6 +2,8 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
+    @StateObject var router = RouterManager.shared
+    
     var scene: SKScene {
         let scene = MenuScene(fileNamed: "MenuScene")!
                 
@@ -11,20 +13,25 @@ struct ContentView: View {
         )
         
         scene.scaleMode = .aspectFit
-        
+                
         return scene
     }
 
     var body: some View {
         GeometryReader { (geometry) in
-        
-        SpriteView(scene: self.scene)
-            .ignoresSafeArea()
-            .frame(
-                width: geometry.size.width,
-                height: geometry.size.height,
-                alignment: .center
-            )
+            ZStack {
+                SpriteView(scene: self.scene)
+                    .ignoresSafeArea()
+                    .frame(
+                        width: geometry.size.width,
+                        height: geometry.size.height,
+                        alignment: .center
+                    )
+                
+                if router.isPopUpPresented {
+                        router.popUp
+                }
+            }
         }
     }
 }

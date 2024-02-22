@@ -8,6 +8,16 @@
 import Foundation
 
 class Level3: GameLevel {
+    let phrasesPre = [
+        "O caminhão com cholate acabou de chegar",
+        "Felizmente, eu ainda lembro como fazer cookies de chocolate",
+        "Olha, temos alguns clientes"
+    ]
+    
+    var phrasesPos = [
+        "Sempre é bom adoçar a vida com um pouco de chocolate!"
+    ]
+    
     let enableChocolate = true
     let enableReturnToStart = true
     let enableIfCondition = false

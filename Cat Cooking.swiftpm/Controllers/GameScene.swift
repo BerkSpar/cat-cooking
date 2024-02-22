@@ -21,6 +21,18 @@ class GameScene: SKScene, GameStateListener {
         setupCats()
         setupMusic()
         setupTommas()
+        setupList()
+    }
+    
+    func setupList() {
+        let node = childNode(withName: "CodeList")!
+        
+        let list = ListNode()
+        list.position = node.position
+        list.configurate()
+        
+        addChild(list)
+        node.removeFromParent()
     }
     
     func setupTommas() {
@@ -35,32 +47,41 @@ class GameScene: SKScene, GameStateListener {
         SoundManager.instance.play("Jazzberry Jam")
     }
     
+    func setupBlock(_ nodeName: String, line: CodeLine, isHidden: Bool = false) {
+        let node = childNode(withName: nodeName) as! SKSpriteNode
+        
+        let block = CodeBlockNode(imageNamed: "Button", line: line)
+        block.position = node.position
+        block.size = node.size
+        block.configurate()
+        block.isHidden = isHidden
+        
+        addChild(block)
+        node.removeFromParent()
+    }
+    
     func setupBlocks() {
-        let cookieCookie = childNode(withName: "CookCookieBlock") as! CodeBlockNode
-        cookieCookie.line = CookCookie()
+        setupBlock("CookCookieBlock", line: CookCookie())
+        setupBlock("DeliverCookieBlock", line: DeliverCookie())
+        setupBlock("ReturnToStartBlock", line: ReturnToStart(), isHidden: !state.level.enableReturnToStart)
+        setupBlock("AddChocolateBlock", line: AddChocolate(), isHidden: !state.level.enableChocolate)
+        setupBlock("IfConditionBlock", line: IfCondition(), isHidden: !state.level.enableIfCondition)
+    }
+    
+    func setupButton(_ nodeName: String, tapClosure: @escaping () -> Void) {
+        let node = childNode(withName: nodeName) as! SKSpriteNode
         
-        let deliverCookie = childNode(withName: "DeliverCookieBlock") as! CodeBlockNode
-        deliverCookie.line = DeliverCookie()
+        let button = ButtonNode(imageNamed: "Button", tapClosure: tapClosure)
+        button.position = node.position
+        button.size = node.size
         
-        let returnToStart = childNode(withName: "ReturnToStartBlock") as! CodeBlockNode
-        returnToStart.line = ReturnToStart()
-        returnToStart.isHidden = !state.level.enableReturnToStart
-        
-        let addChocolate = childNode(withName: "AddChocolateBlock") as! CodeBlockNode
-        addChocolate.line = AddChocolate()
-        addChocolate.isHidden = !state.level.enableChocolate
-        
-        let ifCondition = childNode(withName: "IfConditionBlock") as! CodeBlockNode
-        ifCondition.line = IfCondition()
-        ifCondition.isHidden = !state.level.enableIfCondition
+        addChild(button)
+        node.removeFromParent()
     }
     
     func setupButtons() {
-        let startButton = childNode(withName: "StartButton") as! ButtonNode
-        startButton.tapClosure = start
-        
-        let pauseButton = childNode(withName: "PauseButton") as! ButtonNode
-        pauseButton.tapClosure = stop
+        setupButton("StartButton", tapClosure: start)
+        setupButton("PauseButton", tapClosure: stop)
     }
     
     func setupCats() {
@@ -99,11 +120,24 @@ class GameScene: SKScene, GameStateListener {
     
     func onStateChange(state: GameState) {
         let tommas = childNode(withName: "Tommas")!
-        tommas.isHidden = state.wrongCookieMessage != nil
         
-        showText(state.wrongCookieMessage)
+        if state.canGoToNextLevel {
+            tommas.isHidden = true
+            RouterManager.shared.showPopUp(Popup(text: "Acabou") {
+                tommas.isHidden = false
+            })
+            return
+        }
         
-        if !state.isRunning || state.currentLine < 0 { return }
+        if state.wrongCookieMessage != nil {
+            tommas.isHidden = true
+            RouterManager.shared.showPopUp(Popup(text: state.wrongCookieMessage!, isHappy: false) {
+                self.stop()
+                tommas.isHidden = false
+            })
+        }
+        
+        if !state.isRunning || state.currentLine < 0 || state.currentLine > state.lines.count - 1 { return }
         
         let currentLine = state.lines[state.currentLine]
         
@@ -133,54 +167,6 @@ class GameScene: SKScene, GameStateListener {
                 currentCookie?.setCookie(state.cookie!)
             }
         }
-    }
-    
-    func showText(_ text: String?) {
-        for child in children {
-            if child.name == "UIText" { child.removeFromParent() }
-        }
-        
-        if text == nil { return }
-        
-        let text = SKLabelNode(text: text)
-        text.name = "UIText"
-        text.zPosition = 100
-        
-        var rect = CGRect(
-            x: -(text.frame.width + 40) / 2 ,
-            y: -(text.frame.height + 20) / 2,
-            width: text.frame.width + 40,
-            height: text.frame.height + 40
-        )
-        
-        let shape = SKShapeNode(rect: rect)
-        shape.fillColor = .black
-        shape.zPosition -= 1
-        text.addChild(shape)
-        
-        let cat = SKSpriteNode(imageNamed: "BadTommas")
-        cat.size = CGSize(width: 150, height: 150)
-        cat.position = shape.position
-        cat.position.x = shape.frame.width - 75
-        cat.position.y += 35
-        
-        cat.run(.repeatForever(.sequence([
-            .rotate(toAngle: 0.1, duration: 0.5),
-            .rotate(toAngle: -0.1, duration: 0.5)
-        ])))
-        
-        let background = SKSpriteNode()
-        background.size = scene!.size
-        background.color = .black
-        background.alpha = 0.4
-        background.zPosition -= 1
-        
-//        shape.addChild(background)
-        
-        
-        text.addChild(cat)
-        
-        addChild(text)
     }
     
     func start() {

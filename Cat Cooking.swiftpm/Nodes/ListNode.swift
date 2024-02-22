@@ -7,14 +7,8 @@
 
 import SpriteKit
 
-class ListNode: SKSpriteNode, GameStateListener {
+class ListNode: SKNode, GameStateListener {
     var state = GameState.instance
-        
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        configurate()
-    }
     
     func configurate() {
         draw()

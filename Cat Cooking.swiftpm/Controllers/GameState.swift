@@ -20,14 +20,16 @@ class GameState: SKNode {
     var currentLine: Int = 0
     var currentCat: Int = 0
     var cookie: Cookie?
+    var cookies: [Cookie] = []
     var iterationCount = 0
-    var level: GameLevel = Level2()
+    var level: GameLevel = Level3()
     var returnToStart: Bool = false
     var wrongCookieMessage: String? {
         didSet {
             print(wrongCookieMessage)
         }
     }
+    var canGoToNextLevel = false
     
     var isRunning: Bool = false
     
@@ -68,6 +70,30 @@ class GameState: SKNode {
             
             currentLine += 1
         }
+        
+        if wrongCookieMessage != nil {
+            return
+        }
+        
+        if level.cats.count != cookies.count {
+            wrongCookieMessage = "Tem gatinho sem cookie"
+            notifyListeners()
+            return
+        }
+        
+        var cookieIndex = 0
+        for cat in level.cats {
+            if (cat.cookie != cookies[cookieIndex]) {
+                wrongCookieMessage = "Tem gatinho com cookie errado"
+                notifyListeners()
+                return
+            }
+            
+            cookieIndex += 1
+        }
+        
+        canGoToNextLevel = true
+        notifyListeners()
     }
     
     func reset() {
@@ -75,6 +101,8 @@ class GameState: SKNode {
         currentCat = 0
         cookie = nil
         wrongCookieMessage = nil
+        cookies = []
+        canGoToNextLevel = false
         
         notifyListeners()
     }
