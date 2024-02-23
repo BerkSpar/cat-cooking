@@ -9,6 +9,7 @@ import SpriteKit
 
 class GameScene: SKScene, GameStateListener {
     let state = GameState.instance
+    
     var currentCookie: CookieNode?
     
     override func sceneDidLoad() {
@@ -175,55 +176,38 @@ class GameScene: SKScene, GameStateListener {
         currentCookie = cookie
     }
     
-    func onStateChange(state: GameState) {
+    func showWrongCookieMessage(_ event: WrongCookie) {
         let tommas = childNode(withName: "Tommas")!
+        tommas.isHidden = true
         
-        if state.canGoToNextLevel {
-            tommas.isHidden = true
+        RouterManager.shared.showPopUp(Popup(text: event.message, isHappy: false) {
+            self.stop()
+            tommas.isHidden = false
+        })
+    }
+    
+    func goToNextLevel() {
+        let tommas = childNode(withName: "Tommas")!
+        tommas.isHidden = true
 
-            self.showPosPhrases()
-            print("Passou showPosPhrases")
-            return
-        }
+        showPosPhrases()
+    }
+    
+    func deliverCookie() {
+        let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat - 1]
         
-        if state.wrongCookieMessage != nil {
-            tommas.isHidden = true
-            RouterManager.shared.showPopUp(Popup(text: state.wrongCookieMessage!, isHappy: false) {
-                self.stop()
-                tommas.isHidden = false
-            })
-        }
-        
-        if !state.isRunning || state.currentLine < 0 || state.currentLine > state.lines.count - 1 { return }
-        
-        let currentLine = state.lines[state.currentLine]
-        
-        if currentLine is DeliverCookie && currentCookie != nil && state.currentCat > 0 {
-            let currentCat = childNode(withName: "CatPositions")!.children[state.currentCat - 1]
-            
-            var catPosition = currentCat.position
-            catPosition.y -= 25
-            catPosition.x += 20
-            currentCookie?.run(.sequence([
-                .group([
-                    .move(to: catPosition, duration: 2),
-                    .resize(toWidth: 30, height: 30, duration: 2)
-                ]),
-                .run {
-                    self.currentCookie!.eat()
-                }
-            ]))
-        }
-        
-        if currentLine is CookCookie {
-            addCookie()
-        }
-        
-        if currentLine is AddChocolate || currentLine is CookCookie {
-            if state.cookie != nil {
-                currentCookie?.setCookie(state.cookie!)
+        var catPosition = currentCat.position
+        catPosition.y -= 25
+        catPosition.x += 20
+        currentCookie?.run(.sequence([
+            .group([
+                .move(to: catPosition, duration: 2),
+                .resize(toWidth: 30, height: 30, duration: 2)
+            ]),
+            .run {
+                self.currentCookie!.eat()
             }
-        }
+        ]))
     }
     
     func start() {
@@ -241,6 +225,34 @@ class GameScene: SKScene, GameStateListener {
     func clearCookies() {
         for child in children {
             if child is CookieNode { child.removeFromParent() }
+        }
+    }
+    
+    func onStateChange(event: GameEvent) {
+        if event is GoToNextLevel {
+            goToNextLevel()
+        }
+        
+        if event is WrongCookie {
+            showWrongCookieMessage(event as! WrongCookie)
+        }
+        
+        if event is StopGame {
+            clearCookies()
+        }
+
+        if event is DeliverCookieEvent {
+            deliverCookie()
+        }
+        
+        if event is CookCookieEvent {
+            addCookie()
+        }
+        
+        if event is UpdateCookie {
+            if state.cookie != nil {
+                currentCookie?.setCookie(state.cookie!)
+            }
         }
     }
 }

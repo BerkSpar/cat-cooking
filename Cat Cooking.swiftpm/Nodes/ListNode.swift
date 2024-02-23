@@ -11,13 +11,16 @@ class ListNode: SKNode, GameStateListener {
     var state = GameState.instance
     
     func configurate() {
-        draw()
-        
         state.addListener(self)
+        draw()
     }
     
-    func onStateChange(state: GameState) {
-        draw()
+    func onStateChange(event: GameEvent) {
+        if event is LinesChaged ||
+           event is RunLine ||
+           event is StopGame {
+            draw()
+        }
     }
     
     func draw() {
@@ -35,7 +38,7 @@ class ListNode: SKNode, GameStateListener {
             
             if !state.isRunning {
                 let removeButton = ButtonNode(imageNamed: "Button") {
-                    self.state.removeLine(at: index)
+                    self.state.lines.remove(at: index)
                 }
                 removeButton.size = CGSize(width: 60, height: 60)
                 removeButton.position = CGPoint(x: shape.size.width / 2 + 20, y: 0)

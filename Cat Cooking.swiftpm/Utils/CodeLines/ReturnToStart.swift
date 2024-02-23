@@ -12,6 +12,5 @@ class ReturnToStart: CodeLine {
     
     func run(_ state: GameState) {
         state.returnToStart = true
-        print("Retorna ao começo")
     }
 }

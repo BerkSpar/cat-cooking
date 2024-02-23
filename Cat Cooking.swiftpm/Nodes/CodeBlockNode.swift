@@ -70,10 +70,8 @@ class CodeBlockNode: SKSpriteNode {
             
             let touchedNodes = parent!.nodes(at: location)
             for node in touchedNodes {
-                print(node.name)
-                print(line)
                 if node.name == "AddNode" && line != nil {
-                    state.addLine(line!)
+                    state.lines.append(line!)
                 }
             }
         }

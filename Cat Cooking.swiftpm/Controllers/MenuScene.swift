@@ -81,6 +81,8 @@ class MenuScene: SKScene {
     }
     
     func start() {
+        GameState.instance = GameState()
+        
         let newScene = GameScene(fileNamed: "GameScene")!
         
         newScene.size = CGSize(

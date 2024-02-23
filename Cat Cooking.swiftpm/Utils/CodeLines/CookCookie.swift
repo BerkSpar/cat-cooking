@@ -12,12 +12,14 @@ class CookCookie: CodeLine {
     
     func run(_ state: GameState) {
         if state.cookie?.state == .baked {
-            state.wrongCookieMessage = "The cookie has burnt"
-            state.cookie?.state = .burnt
+            state.cookie!.state = .burnt
+            
+            state.emit(UpdateCookie(cookie: state.cookie!))
+            state.emit(WrongCookie(message: "The cookie has burnt"))
             return
         }
         
         state.cookie = Cookie(state: .baked)
-        print("Assa Cookie")
+        state.emit(CookCookieEvent())
     }
 }

@@ -7,79 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF"
+            uuid = "89A29D4D-74AF-4F5D-A22E-219574678F26"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Controllers/GameState.swift"
+            filePath = "Utils/CodeLines/CookCookie.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "runCode()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - aaed4084b6eb1895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
-                  moduleName = "Cat Cooking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "1240">
-               </Location>
-               <Location
-                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - d5c23b2cf8cf697"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
-                  moduleName = "Cat Cooking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "1036">
-               </Location>
-               <Location
-                  uuid = "417B6625-D53C-4B25-BBAE-AAA82617A9CF - b0937d3b2cdc0598"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for Cat_Cooking.GameState.runCode() async -&gt; ()"
-                  moduleName = "Cat Cooking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/felipepassos/Documents/cat-cooking/Cat%20Cooking.swiftpm/Controllers/GameState.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "1052">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9EBA547E-063E-4A36-977B-93E15B8F4AB5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/GameScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "showPosPhrases()"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "run(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
