@@ -14,6 +14,6 @@ protocol GameLevel {
     var enableReturnToStart: Bool { get }
     var enableIfCondition: Bool { get }
     
-    var phrasesPre: [String] { get }
-    var phrasesPos: [String] { get }
+    var phrasesPre: [String] { get set }
+    var phrasesPos: [String] { get set }
 }

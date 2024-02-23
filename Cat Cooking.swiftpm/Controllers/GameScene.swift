@@ -22,6 +22,63 @@ class GameScene: SKScene, GameStateListener {
         setupMusic()
         setupTommas()
         setupList()
+        
+        showPrePhrases()
+    }
+    
+    func loadNextLevel() {
+        if state.levels.count <= 0 {
+            let newScene = MenuScene(fileNamed: "MenuScene")!
+            
+            newScene.size = CGSize(
+                width: 1366,
+                height: 1024
+            )
+            
+            newScene.scaleMode = .aspectFit
+            
+            scene?.view?.presentScene(newScene)
+            
+            return
+        }
+        
+        state.setLevel(state.levels.removeFirst())
+        
+        let newScene = GameScene(fileNamed: "GameScene")!
+        
+        newScene.size = CGSize(
+            width: 1366,
+            height: 1024
+        )
+        
+        newScene.scaleMode = .aspectFit
+        
+        scene?.view?.presentScene(newScene)
+    }
+    
+    func showPrePhrases() {
+        if state.level.phrasesPre.count <= 0 {
+            return
+        }
+    
+        let text = state.level.phrasesPre.removeFirst()
+        
+        RouterManager.shared.showPopUp(Popup(text: text) {
+            self.showPrePhrases()
+        })
+    }
+    
+    func showPosPhrases() {
+        if state.level.phrasesPos.count <= 0 {
+            loadNextLevel()
+            return
+        }
+    
+        let text = state.level.phrasesPos.removeFirst()
+        
+        RouterManager.shared.showPopUp(Popup(text: text) {
+            self.showPosPhrases()
+        })
     }
     
     func setupList() {
@@ -123,9 +180,9 @@ class GameScene: SKScene, GameStateListener {
         
         if state.canGoToNextLevel {
             tommas.isHidden = true
-            RouterManager.shared.showPopUp(Popup(text: "Acabou") {
-                tommas.isHidden = false
-            })
+
+            self.showPosPhrases()
+            print("Passou showPosPhrases")
             return
         }
         

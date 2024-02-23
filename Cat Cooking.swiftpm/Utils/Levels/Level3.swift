@@ -8,13 +8,15 @@
 import Foundation
 
 class Level3: GameLevel {
-    let phrasesPre = [
+    var phrasesPre = [
         "O caminhão com cholate acabou de chegar",
         "Felizmente, eu ainda lembro como fazer cookies de chocolate",
         "Olha, temos alguns clientes"
     ]
     
     var phrasesPos = [
+        "Aeee!",
+        "Aeee2!",
         "Sempre é bom adoçar a vida com um pouco de chocolate!"
     ]
     

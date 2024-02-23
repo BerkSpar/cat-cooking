@@ -8,7 +8,7 @@
 import Foundation
 
 class Level2: GameLevel {
-    let phrasesPre = [
+    var phrasesPre = [
         "Eita, hoje o dia está bem cheio",
         "Chegaram mais clientes e eu posso te ajudar a deixar tudo mais fácil",
         "Use o VOLTAR PARA O COMEÇO para facilitar sua receira"

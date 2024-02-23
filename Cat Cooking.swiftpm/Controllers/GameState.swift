@@ -16,19 +16,20 @@ class GameState: SKNode {
     
     static var instance = GameState()
     
+    var levels: [GameLevel] = [
+        Level2(),
+        Level3()
+    ]
+    
     var lines: [CodeLine] = []
     var currentLine: Int = 0
     var currentCat: Int = 0
     var cookie: Cookie?
     var cookies: [Cookie] = []
     var iterationCount = 0
-    var level: GameLevel = Level3()
+    var level: GameLevel = Level1()
     var returnToStart: Bool = false
-    var wrongCookieMessage: String? {
-        didSet {
-            print(wrongCookieMessage)
-        }
-    }
+    var wrongCookieMessage: String?
     var canGoToNextLevel = false
     
     var isRunning: Bool = false
@@ -103,8 +104,23 @@ class GameState: SKNode {
         wrongCookieMessage = nil
         cookies = []
         canGoToNextLevel = false
+        iterationCount = 0
         
         notifyListeners()
+    }
+    
+    func setLevel(_ level: GameLevel) {
+        lines = []
+        currentLine = 0
+        currentCat = 0
+        cookie = nil
+        cookies = []
+        iterationCount = 0
+        self.level = level
+        returnToStart = false
+        wrongCookieMessage = nil
+        canGoToNextLevel = false
+        isRunning = false
     }
     
     func stop() {
