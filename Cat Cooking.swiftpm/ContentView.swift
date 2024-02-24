@@ -29,9 +29,10 @@ struct ContentView: View {
                     )
                 
                 if router.isPopUpPresented {
-                        router.popUp
+                    router.popUp
                 }
             }
         }
+        .preferredColorScheme(.light)
     }
 }
