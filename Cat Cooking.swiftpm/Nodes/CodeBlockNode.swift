@@ -41,6 +41,17 @@ class CodeBlockNode: SKSpriteNode {
     func configureShadow() {
         shadow = SKShapeNode(rectOf: size)
         
+        shadow!.path = UIBezierPath(
+            roundedRect: CGRect(
+                x: -frame.width / 2,
+                y: -frame.height / 2,
+                width: frame.width,
+                height: frame.height
+            ),
+            byRoundingCorners: [.allCorners],
+            cornerRadii: CGSize(width: 16, height: 16)
+        ).cgPath
+        
         shadow!.fillColor = .black
         shadow!.position = CGPoint(x: -5, y: -5)
         shadow!.alpha = 0.25
@@ -62,6 +73,7 @@ class CodeBlockNode: SKSpriteNode {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         shadow!.run(.unhide())
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

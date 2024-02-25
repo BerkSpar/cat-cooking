@@ -108,7 +108,7 @@ class GameScene: SKScene, GameStateListener {
     func setupBlock(_ nodeName: String, line: CodeLine, isHidden: Bool = false) {
         let node = childNode(withName: nodeName) as! SKSpriteNode
         
-        let block = CodeBlockNode(imageNamed: "Button", line: line)
+        let block = CodeBlockNode(imageNamed: nodeName, line: line)
         block.position = node.position
         block.size = node.size
         block.configurate()
