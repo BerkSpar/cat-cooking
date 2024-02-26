@@ -8,7 +8,7 @@
 import Foundation
 
 class IfCondition: CodeLine {
-    let name = "If Condition"
+    let name = "IfCondition"
     
     func run(_ state: GameState) {
         print("If")

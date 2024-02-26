@@ -31,26 +31,21 @@ class ListNode: SKNode, GameStateListener {
         var lastPosition = CGPoint(x: 0, y: 0)
         
         for (index, line) in state.lines.enumerated() {
-            let shape = CodeLineNode()
-            shape.size = CGSize(width: 300, height: 60)
-            shape.color = .green
+            var name = "\(line.name)Line"
+            
+            if index == state.currentLine && state.isRunning {
+                name += "Running"
+            }
+            
+            let shape = CodeLineNode(imageNamed: name)
             shape.position = lastPosition
             
             if !state.isRunning {
                 let removeButton = ButtonNode(imageNamed: "RemoveButton") {
                     self.state.lines.remove(at: index)
                 }
-                removeButton.size = CGSize(width: 60, height: 60)
-                removeButton.position = CGPoint(x: shape.size.width / 2 + 20, y: 0)
+                removeButton.position = CGPoint(x: shape.size.width / 2 - 25, y: 0)
                 shape.addChild(removeButton)
-            }
-            
-            let text = SKLabelNode(text: line.name)
-            text.fontColor = .black
-            shape.addChild(text)
-            
-            if index == state.currentLine && state.isRunning {
-                shape.color = .magenta
             }
             
             addChild(shape)
@@ -59,8 +54,7 @@ class ListNode: SKNode, GameStateListener {
         }
         
         if !state.isRunning && state.lines.count < 8 {
-            let shape = SKSpriteNode()
-            shape.size = CGSize(width: 300, height: 60)
+            let shape = SKSpriteNode(imageNamed: "EmptyLine")
             shape.color = .gray
             shape.position = lastPosition
             shape.name = "AddNode"

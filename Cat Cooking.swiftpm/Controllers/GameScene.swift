@@ -169,6 +169,7 @@ class GameScene: SKScene, GameStateListener {
         
         let cookie = CookieNode(cookie: Cookie(state: .baked, hasChocolate: false))
         cookie.position = cookiePreview.position
+        cookie.position.y -= 10
         cookie.size = CGSize(width: 100, height: 100)
         addChild(cookie)
         

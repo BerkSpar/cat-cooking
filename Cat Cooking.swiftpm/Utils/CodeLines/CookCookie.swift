@@ -8,7 +8,7 @@
 import Foundation
 
 class CookCookie: CodeLine {
-    let name = "Cook Cookie"
+    let name = "CookCookie"
     
     func run(_ state: GameState) {
         if state.cookie?.state == .baked {

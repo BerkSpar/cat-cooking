@@ -8,7 +8,7 @@
 import Foundation
 
 class ReturnToStart: CodeLine {
-    let name = "Return To Start"
+    let name = "ReturnToStart"
     
     func run(_ state: GameState) {
         state.returnToStart = true

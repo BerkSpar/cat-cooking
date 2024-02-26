@@ -8,7 +8,7 @@
 import Foundation
 
 class DeliverCookie: CodeLine {
-    let name = "Deliver Cookie"
+    let name = "DeliverCookie"
     
     func run(_ state: GameState) {
         if state.cookie == nil {

@@ -8,19 +8,14 @@
 import SpriteKit
 
 class CodeLineNode: SKSpriteNode {
-    var line: CodeLine? 
+    var line: CodeLine?
     
-    init() {
-        super.init(texture: .none, color: .gray, size: CGSize(width: 300, height: 40))
+    init(imageNamed: String) {
+        let texture = SKTexture(imageNamed: imageNamed)
+        super.init(texture: texture, color: .clear, size: texture.size())
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        configurate()
-    }
-    
-    func configurate() {
-        color = .gray
+        fatalError("init(coder:) has not been implemented")
     }
 }
