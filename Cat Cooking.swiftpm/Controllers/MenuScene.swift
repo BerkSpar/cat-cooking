@@ -8,10 +8,8 @@
 import SpriteKit
 
 class MenuScene: SKScene {
-    var soundManager = SoundManager()
-    
-    override func sceneDidLoad() {
-        super.sceneDidLoad()
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
         
         setupButtons()
         setupCats()
@@ -19,7 +17,8 @@ class MenuScene: SKScene {
     }
     
     func setupMusic() {
-        SoundManager.instance.play("Candy Bazaar")
+        print("Toca audio Menu")
+         SoundManager.instance.play("Candy Bazaar")
     }
     
     func addCat(_ isRightToLeft: Bool) {
@@ -68,7 +67,7 @@ class MenuScene: SKScene {
     func setupButton(_ nodeName: String, tapClosure: @escaping () -> Void) {
         let node = childNode(withName: nodeName) as! SKSpriteNode
         
-        let button = ButtonNode(imageNamed: "Button", tapClosure: tapClosure)
+        let button = ButtonNode(imageNamed: nodeName, tapClosure: tapClosure)
         button.position = node.position
         button.size = node.size
         

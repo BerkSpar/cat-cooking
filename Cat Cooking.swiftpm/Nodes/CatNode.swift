@@ -26,16 +26,14 @@ class CatNode: SKSpriteNode {
     }
     
     func configurate() {
-        if cat.cookie.hasChocolate {
-            let chocolate = SKSpriteNode(imageNamed: "ChocolateCookie")
-            chocolate.size = CGSize(width: 50, height: 50)
-            chocolate.position.y += 100
-            chocolate.run(.repeatForever(.sequence([
-                .moveTo(y: chocolate.position.y - 10, duration: 1),
-                .moveTo(y: chocolate.position.y + 10, duration: 1),
-            ])))
-            addChild(chocolate)
-        }
+        let chocolate = SKSpriteNode(imageNamed: cat.cookie.hasChocolate ? "CatSpeakChocolate" : "CatSpeak")
+        chocolate.size = CGSize(width: 50, height: 50)
+        chocolate.position.y += 100
+        chocolate.run(.repeatForever(.sequence([
+            .moveTo(y: chocolate.position.y - 10, duration: 1),
+            .moveTo(y: chocolate.position.y + 10, duration: 1),
+        ])))
+        addChild(chocolate)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -16,6 +16,11 @@ class AddChocolate: CodeLine {
             return
         }
         
+        if state.cookie!.hasChocolate {
+            state.emit(WrongCookie(message: "Tem chocolate demais no cookie"))
+            return
+        }
+        
         state.cookie!.hasChocolate = true
         state.emit(UpdateCookie(cookie: state.cookie!))
         print("Adiciona chocolate")

@@ -18,7 +18,8 @@ class GameState: SKNode {
     
     var levels: [GameLevel] = [
         Level2(),
-        Level3()
+        Level3(),
+        Level4()
     ]
     
     var lines: [CodeLine] = [] {

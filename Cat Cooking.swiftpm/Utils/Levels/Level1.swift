@@ -9,14 +9,15 @@ import Foundation
 
 class Level1: GameLevel {
     var phrasesPre = [
-        "Bem vindo! Meu nome é Tommas e sou um gatinho cozinheiro",
+        "Bem-vindo! eu sou o Tommas",
         "Eu preciso da sua ajuda para fazer alguns cookies",
-        "Você pode me ajudar?"
+        "Você precisa arrastar os blocos até a receita",
+        "Vamos nessa!"
     ]
     
     var phrasesPos = [
-        "Ahhhh que alivio",
-        "Eu sabia que podia contar com você!"
+        "Ufa, você conseguiu",
+        "Mas ainda temos muito trabalho pela frente"
     ]
     
     let enableChocolate = false

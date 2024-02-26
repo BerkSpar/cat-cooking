@@ -37,7 +37,7 @@ class ListNode: SKNode, GameStateListener {
             shape.position = lastPosition
             
             if !state.isRunning {
-                let removeButton = ButtonNode(imageNamed: "Button") {
+                let removeButton = ButtonNode(imageNamed: "RemoveButton") {
                     self.state.lines.remove(at: index)
                 }
                 removeButton.size = CGSize(width: 60, height: 60)
@@ -58,7 +58,7 @@ class ListNode: SKNode, GameStateListener {
             lastPosition.y += -shape.size.height - 10
         }
         
-        if !state.isRunning && state.lines.count < 12 {
+        if !state.isRunning && state.lines.count < 8 {
             let shape = SKSpriteNode()
             shape.size = CGSize(width: 300, height: 60)
             shape.color = .gray

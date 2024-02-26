@@ -12,9 +12,7 @@ class GameScene: SKScene, GameStateListener {
     
     var currentCookie: CookieNode?
     
-    override func sceneDidLoad() {
-        super.sceneDidLoad()
-        
+    override func didMove(to view: SKView) {
         state.addListener(self)
                                 
         setupButtons()
@@ -102,6 +100,7 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func setupMusic() {
+        print("Toca audio Game")
         SoundManager.instance.play("Jazzberry Jam")
     }
     
@@ -129,7 +128,7 @@ class GameScene: SKScene, GameStateListener {
     func setupButton(_ nodeName: String, tapClosure: @escaping () -> Void) {
         let node = childNode(withName: nodeName) as! SKSpriteNode
         
-        let button = ButtonNode(imageNamed: "Button", tapClosure: tapClosure)
+        let button = ButtonNode(imageNamed: nodeName, tapClosure: tapClosure)
         button.position = node.position
         button.size = node.size
         
@@ -138,7 +137,7 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func setupButtons() {
-        setupButton("StartButton", tapClosure: start)
+        setupButton("PlayButton", tapClosure: start)
         setupButton("PauseButton", tapClosure: stop)
     }
     
