@@ -17,7 +17,6 @@ class MenuScene: SKScene {
     }
     
     func setupMusic() {
-        print("Toca audio Menu")
          SoundManager.instance.play("Candy Bazaar")
     }
     

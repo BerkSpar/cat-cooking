@@ -23,6 +23,5 @@ class AddChocolate: CodeLine {
         
         state.cookie!.hasChocolate = true
         state.emit(UpdateCookie(cookie: state.cookie!))
-        print("Adiciona chocolate")
     }
 }

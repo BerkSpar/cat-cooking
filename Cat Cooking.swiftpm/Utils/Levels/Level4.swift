@@ -9,20 +9,23 @@ import Foundation
 
 class Level4: GameLevel {
     var phrasesPre = [
-        "Estamos chegando ao final do expediente",
-        "Está ficando cade vez mais dificil",
-        "Preste atenção na próxima receita, ela pode ser um pouco mais complicada",
-        "Os clientes estão ficando exigentes!"
+        "We're coming to the end of working hours",
+        "It's getting harder and harder",
+        "Pay attention to the next recipe, it might be a bit more complicated",
+        "Customers are getting demanding!"
     ]
     
     var phrasesPos = [
-        "UHUUUL! Você fez ótimas receitas durante a sua jornada na cozinha",
-        "Além de me ajudar em fazer cookies, voce aprendeu alguns conceitos comuns de programação",
-        "As receitas são algoritmos que tem inicio, meio e fim",
-        "E quando são seguidas passo a passo, chegam sempre no mesmo resultado",
-        "Foi legal relembrar algumas receitas com você",
-        "Até a proxima!",
-        "Miau"
+        "",
+        "",
+        "",
+        "WOW! You've made some great recipes during your journey in the kitchen",
+        "In addition to helping me make cookies, you learned some common programming concepts",
+        "Recipes are algorithms that have a beginning, middle and end",
+        "And when they are followed step by step, they always arrive at the same result",
+        "It was nice to remember some recipes with you",
+        "See you next time!",
+        "Meow"
     ]
     
     let enableChocolate = true

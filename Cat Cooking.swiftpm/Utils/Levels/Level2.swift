@@ -9,18 +9,19 @@ import Foundation
 
 class Level2: GameLevel {
     var phrasesPre = [
-        "Teremos muitos clientes hoje",
-        "Ainda bem que lembrei que tenho uma carta na manga",
-        "Você pode usar \"Go to start\" para criar um loop na receita",
-        "Toda ver que a receita chegar em \"Go to start\" ela voltará para a primeira linha",
-        "Vamos tentar?"
+        "We'll have lots of customers",
+        "I'm glad I remembered that I have an ace up my sleeve",
+        "You can use \"go to start\" to create a loop in the recipe",
+        "Every time the recipe reaches \"go to start\" it will go back to the first line",
+        "Shall we try it?"
     ]
     
     var phrasesPos = [
-        "Nossa, foram muitos cookies",
-        "O \"Go to start\" te ajudou?",
-        "Ele tem o poder de deixar a sua receita menor",
-        "Agora vamos nos preparar para os próximos clientes"
+        "",
+        "Wow, that was a lot of cookies",
+        "Did \"go to start\" help you?",
+        "It has the power to make your recipe smaller",
+        "Now let's get ready for the next customers"
     ]
     
     let enableChocolate = false

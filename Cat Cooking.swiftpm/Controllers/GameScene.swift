@@ -67,6 +67,9 @@ class GameScene: SKScene, GameStateListener {
         })
     }
     
+    // Here there is problem that every level its remove the wrong text.
+    // I "solved" this adding blank spaces on the array, is not too good
+    // But it works for today. Sorry for the bad code.
     func showPosPhrases() {
         if state.level.phrasesPos.count <= 0 {
             loadNextLevel()
@@ -100,7 +103,6 @@ class GameScene: SKScene, GameStateListener {
     }
     
     func setupMusic() {
-        print("Toca audio Game")
         SoundManager.instance.play("Jazzberry Jam")
     }
     

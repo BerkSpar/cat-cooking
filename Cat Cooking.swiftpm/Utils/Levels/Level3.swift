@@ -9,16 +9,18 @@ import Foundation
 
 class Level3: GameLevel {
     var phrasesPre = [
-        "O carregamento de cholate acabou de chegar",
-        "Felizmente, eu ainda lembro como fazer cookies de chocolate",
-        "Basta \"adicionar chocolate\" após \"Cook Cookie\"",
-        "Olha, temos alguns clientes"
+        "The chocolate shipment just arrived",
+        "Fortunately, I still remember how to make chocolate cookies",
+        "Just \"add chocolate\" after \"cook cookie\"",
+        "Look, we have some customers"
     ]
     
     var phrasesPos = [
-        "Muito bem! Você é realmente bom",
-        "O cheirinho de chocolate é muito gostoso",
-        "Veja está atraindo mais clientes"
+        "",
+        "",
+        "Well done! You're really good",
+        "The smell of chocolate is very tasty",
+        "You're attracting more customers"
     ]
     
     let enableChocolate = true

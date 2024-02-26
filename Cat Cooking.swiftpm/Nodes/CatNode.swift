@@ -37,7 +37,7 @@ class CatNode: SKSpriteNode {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let soundName = ["cat-purr-meow", "cat-meow", "mjau3"].randomElement()!
+        let soundName = "kitten-meowing-\(Int.random(in: 1...5))"
         run(.playSoundFileNamed(soundName, waitForCompletion: false))
         
         run(.sequence([

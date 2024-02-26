@@ -35,6 +35,7 @@ class SoundManager {
         try? AVAudioSession.sharedInstance().setActive(true)
 
         try! audioPlayer = AVAudioPlayer(contentsOf: sound)
+        audioPlayer?.volume = 0.6
         audioPlayer?.prepareToPlay()
         audioPlayer?.numberOfLoops = -1
                 

@@ -11,6 +11,6 @@ class IfCondition: CodeLine {
     let name = "IfCondition"
     
     func run(_ state: GameState) {
-        print("If")
+
     }
 }
