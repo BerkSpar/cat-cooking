@@ -76,14 +76,14 @@ class GameState: SKNode {
         }
         
         if level.cats.count != cookies.count {
-            emit(WrongCookie(message: "Tem gatinho sem cookie"))
+            emit(WrongCookie(message: "There's a kitten without a cookie"))
             return
         }
         
         var cookieIndex = 0
         for cat in level.cats {
             if (cat.cookie != cookies[cookieIndex]) {
-                emit(WrongCookie(message: "Tem gatinho com cookie errado"))
+                emit(WrongCookie(message: "There's a kitten with the wrong cookie"))
                 return
             }
             

@@ -12,12 +12,12 @@ class AddChocolate: CodeLine {
     
     func run(_ state: GameState) {
         if state.cookie == nil {
-            state.emit(WrongCookie(message: "There is no cookie to add chocolate"))
+            state.emit(WrongCookie(message: "There's no cookie to add chocolate"))
             return
         }
         
         if state.cookie!.hasChocolate {
-            state.emit(WrongCookie(message: "Tem chocolate demais no cookie"))
+            state.emit(WrongCookie(message: "There's lots of chocolate"))
             return
         }
         

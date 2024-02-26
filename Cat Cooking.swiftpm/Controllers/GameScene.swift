@@ -57,6 +57,8 @@ class GameScene: SKScene, GameStateListener {
     
     func showPrePhrases() {
         if state.level.phrasesPre.count <= 0 {
+            let tommas = childNode(withName: "Tommas")!
+            tommas.isHidden = false
             return
         }
     
@@ -100,6 +102,7 @@ class GameScene: SKScene, GameStateListener {
             .rotate(toAngle: 0.1, duration: 1),
             .rotate(toAngle: -0.1, duration: 1)
         ])))
+        tommas.isHidden = true
     }
     
     func setupMusic() {
